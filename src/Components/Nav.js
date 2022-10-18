@@ -4,7 +4,7 @@ import DarkMode from '../Utilities/DarkMode';
 
 const Nav = () => {
     return (
-        <div className='flex flex-row items-center justify-center mt-4'>
+        <div className='flex flex-row items-center justify-center gap-2 mt-4'>
             <FireIcon />
             <Title />
             <ThemeIcon />
@@ -20,7 +20,7 @@ const ThemeIcon = () => {
             {darkTheme ? (
                 <FaSun size='24' className='top-navigation-icon' />
             ) : (
-                <FaMoon size='24' className='top-navigation-icon' />
+                <FaMoon size='24' className='top-navigation-icon-moon' />
             )}
         </span>
     );
