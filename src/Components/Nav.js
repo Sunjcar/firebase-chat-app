@@ -5,7 +5,7 @@ import DarkMode from '../Utilities/DarkMode';
 const Nav = () => {
     return (
         <div className='flex flex-row items-center justify-center gap-2 mt-4'>
-            <FireIcon />
+            <FireIcon/>
             <Title />
             <ThemeIcon />
         </div>
@@ -26,7 +26,7 @@ const ThemeIcon = () => {
     );
 };
 
-const FireIcon = () => <AiFillFire size='20' className='title-hashtag' />;
+const FireIcon = () => <AiFillFire size='20' className='text-yellow-300 dark:text-orange-500' />;
 const Title = () => <h5 className='title-text'>Fire Chat</h5>;
 
 export default Nav;
