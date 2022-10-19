@@ -7,8 +7,8 @@ const Messages = (props) => {
     const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
   
     return (<>
-      <div className={`message ${messageClass} flex justify-around w-screen`}>
-        <img src={photoURL} />
+      <div className={`message ${messageClass}`}>
+        <img src={photoURL} alt={'avatar'}/>
         <p>{text}</p>
       </div>
     </>)
