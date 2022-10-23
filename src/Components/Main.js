@@ -1,48 +1,40 @@
-import React, { useRef, useState } from 'react';
-import { auth, firestore } from '../Utilities/firebasekey';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import firebase from 'firebase/compat/app';
+import React, { useEffect, useRef, useState } from 'react';
+import { db } from '../Utilities/firebasekey';
+
 import Messages from './Messages';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
+import SendMessage from './SendMessage';
 
 const Main = () => {
-  const dummy = useRef();
-  const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
-
-  const [messages] = useCollectionData(query, { idField: 'id' });
-
-  const [formValue, setFormValue] = useState('');
+  const [messages, setMessages] = useState([]);
+  const scroll = useRef();
 
 
-  const sendMessage = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const q = query(collection(db, 'messages'), orderBy('timestamp'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let messages = [];
+      querySnapshot.forEach((doc) => {
+        messages.push({ ...doc.data(), id: doc.id });
+      });
+      setMessages(messages);
+    });
+    return () => unsubscribe();
+  }, []);
 
-    const { uid, photoURL } = auth.currentUser;
-
-    await messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL
-    })
-
-    setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  return (<>
-    <main className='flex flex-col w-auto h-5/6 '>
-      {messages && messages.map(msg => <Messages key={msg.id} message={msg} />)}
-      <span ref={dummy}></span>
-    </main>
-    <div className='bottom-bar'>
-      <form onSubmit={sendMessage}  className='flex w-screen rounded-full'>
-          <input className='bottom-bar-input' value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder=" Message" />
-          <button type="submit" disabled={!formValue}>Send</button> 
-      </form>
-    </div>
+  return (
+    <>
+      <main className='flex flex-col w-auto h-5/6 '>
+        {messages &&
+          messages.map(message => (
+            <Messages key={message.id} message={message}/>
+          ))}
+        <span ref={scroll}></span>
+      </main>
+      <SendMessage scroll={scroll} />
+      <span ref={scroll}></span>
     </>
-  )
-}
+  );
+};
 
 export default Main
