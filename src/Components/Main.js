@@ -24,15 +24,14 @@ const Main = () => {
 
   return (
     <>
-      <main className='flex flex-col w-auto h-5/6 '>
+      <main className='flex flex-col w-auto h-screen overflow-auto '>
         {messages &&
           messages.map(message => (
             <Messages key={message.id} message={message}/>
           ))}
-        <span ref={scroll}></span>
+                <span ref={scroll}></span>
       </main>
-      <SendMessage scroll={scroll} />
-      <span ref={scroll}></span>
+      <SendMessage />
     </>
   );
 };

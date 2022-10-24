@@ -4,15 +4,18 @@ import SignOut from './SignOut';
 const Sidebar = () => {
     return (
         <div className='fixed top-0 left-0 flex flex-col w-16 h-screen text-white bg-gray-900 shadow-lg dark:bg-gray-900 dark:text-white'>
-            <SideBarIcon icon={<RiMessage2Fill size='28' />} />
+            <SideBarIcon icon={<RiMessage2Fill size='28'/>}/>
             <Divider />
             <Divider />
             <SignOutIcon icon={<SignOut size="28" />} />
+            <Divider />
+            <Divider />
+
         </div>
     )
 }
 
-const SideBarIcon = ({ icon, text = '💡' }) => (
+const SideBarIcon = ({ icon, text = 'Messages' }) => (
     <div className='sidebar-icon group'>
         {icon}
         <span className='sidebar-tooltip group-hover:scale-100'>
@@ -29,6 +32,7 @@ const SignOutIcon = ({ icon, text = 'Sign Out' }) => (
         </span>
     </div>
 )
+
 
 
 const Divider = () => <hr className="sidebar-hr" />;

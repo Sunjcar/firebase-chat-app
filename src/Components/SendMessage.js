@@ -26,7 +26,7 @@ const SendMessage = ({ scroll, message }) => {
 
   return (
     <div className='bottom-bar'>
-    <form onSubmit={sendMessage} className='flex w-screen rounded-full'  >
+    <form onSubmit={sendMessage} className='flex rounded-full'  >
       <input
         className='bottom-bar-input'
         value={formValue}
@@ -34,10 +34,10 @@ const SendMessage = ({ scroll, message }) => {
         type='text'
         placeholder='Message'
       />
-      <button  type='submit' disabled={!formValue}>
-        Send
-      </button>
     </form>
+    <button  type='submit' disabled={!formValue}>
+        Send
+    </button>
     </div>
 
   )
